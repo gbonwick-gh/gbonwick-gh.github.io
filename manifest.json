@@ -1,0 +1,9 @@
+{
+    "name": "Radio",
+    "short_name": "Radio",
+    "start_url": "./",
+    "display": "fullscreen",
+    "background_color": "#050505",
+    "theme_color": "#050505",
+    "orientation": "portrait"
+}
