@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 
 <meta
@@ -12,11 +14,25 @@
              viewport-fit=cover"
 >
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Radio">
+<meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+>
 
-<meta name="theme-color" content="#050505">
+<meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black"
+>
+
+<meta
+    name="apple-mobile-web-app-title"
+    content="Radio"
+>
+
+<meta
+    name="theme-color"
+    content="#050505"
+>
 
 <link rel="manifest" href="manifest.json">
 
@@ -26,6 +42,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 >
+
 
 <style>
 
@@ -43,6 +60,7 @@ html,
 body {
     width: 100%;
     height: 100%;
+
     margin: 0;
     padding: 0;
 
@@ -69,23 +87,25 @@ body {
    ========================================================= */
 
 #radio {
+
     width: 100%;
     height: 100%;
 
     display: grid;
 
+    /* Larger physical-style button panels */
     grid-template-columns:
-        55px
+        61px
         minmax(0, 1fr)
-        55px;
+        61px;
 
-    gap: 8px;
+    gap: 9px;
 
     padding:
         calc(8px + env(safe-area-inset-top))
-        8px
+        7px
         calc(8px + env(safe-area-inset-bottom))
-        8px;
+        7px;
 
     background:
         linear-gradient(
@@ -102,6 +122,7 @@ body {
    ========================================================= */
 
 .side {
+
     display: flex;
 
     flex-direction: column;
@@ -109,7 +130,7 @@ body {
     align-items: center;
     justify-content: space-around;
 
-    padding: 10px 0;
+    padding: 7px 0;
 }
 
 
@@ -118,8 +139,9 @@ body {
    ========================================================= */
 
 .eButton {
-    width: 50px;
-    height: 50px;
+
+    width: 55px;
+    height: 55px;
 
     display: flex;
 
@@ -135,7 +157,7 @@ body {
 
     color: #d0d0d0;
 
-    font-size: 17px;
+    font-size: 18px;
 
     appearance: none;
     -webkit-appearance: none;
@@ -145,7 +167,9 @@ body {
 }
 
 .eButton:active {
+
     background: #d0d0d0;
+
     color: #111;
 
     transform: scale(.95);
@@ -157,8 +181,9 @@ body {
    ========================================================= */
 
 .buttonGroup {
-    width: 50px;
-    height: 50px;
+
+    width: 55px;
+    height: 55px;
 
     display: grid;
 
@@ -173,6 +198,7 @@ body {
 }
 
 .groupButton {
+
     width: 100%;
     height: 100%;
 
@@ -190,18 +216,21 @@ body {
 
     color: #d0d0d0;
 
-    font-size: 15px;
+    font-size: 16px;
 
     appearance: none;
     -webkit-appearance: none;
 }
 
 .groupButton + .groupButton {
+
     border-left: 1px solid #777;
 }
 
 .groupButton:active {
+
     background: #d0d0d0;
+
     color: #111;
 }
 
@@ -211,10 +240,12 @@ body {
    ========================================================= */
 
 #centre {
+
     min-width: 0;
     min-height: 0;
 
     display: flex;
+
     flex-direction: column;
 }
 
@@ -224,7 +255,8 @@ body {
    ========================================================= */
 
 #topBar {
-    height: 39px;
+
+    height: 45px;
 
     flex-shrink: 0;
 
@@ -233,7 +265,7 @@ body {
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 9px;
+    padding: 0 11px;
 
     border: 1px solid #444;
     border-radius: 3px;
@@ -243,26 +275,31 @@ body {
     box-shadow:
         inset 0 0 10px rgba(0,0,0,.55);
 
-    font-size: 12px;
+    font-size: 13px;
 }
 
 #topStation {
+
     min-width: 0;
 
     overflow: hidden;
 
     white-space: nowrap;
+
     text-overflow: ellipsis;
 
     color: #e0e0e0;
 }
 
 #topClock {
+
     flex-shrink: 0;
 
     margin-left: 8px;
 
     color: #aaa;
+
+    font-size: 13px;
 
     font-variant-numeric: tabular-nums;
 }
@@ -273,11 +310,12 @@ body {
    ========================================================= */
 
 #screen {
+
     flex: 1;
 
     min-height: 0;
 
-    margin-top: 5px;
+    margin-top: 6px;
 
     display: flex;
 
@@ -286,7 +324,7 @@ body {
     align-items: center;
     justify-content: center;
 
-    padding: 10px 7px;
+    padding: 12px 7px;
 
     border: 1px solid #292929;
     border-radius: 3px;
@@ -305,7 +343,8 @@ body {
    ========================================================= */
 
 #logoBox {
-    width: min(45vw, 145px);
+
+    width: min(52vw, 165px);
 
     aspect-ratio: 1 / 1;
 
@@ -325,6 +364,7 @@ body {
 }
 
 #logoBox img {
+
     width: 100%;
     height: 100%;
 
@@ -332,9 +372,10 @@ body {
 }
 
 #logoPlaceholder {
+
     color: #555;
 
-    font-size: 10px;
+    font-size: 11px;
 
     letter-spacing: 2px;
 }
@@ -345,18 +386,20 @@ body {
    ========================================================= */
 
 #stationText {
+
     width: 100%;
 
-    margin-top: 11px;
+    margin-top: 13px;
 
-    padding: 0 4px;
+    padding: 0 5px;
 
     text-align: center;
 
     color: #ccc;
 
-    font-size: 12px;
-    line-height: 1.35;
+    font-size: 14px;
+
+    line-height: 1.4;
 
     overflow: hidden;
 
@@ -370,35 +413,40 @@ body {
 
 #bigClock,
 #bigDate {
+
     display: none;
 }
 
 .clockMode #logoBox,
 .clockMode #stationText {
+
     display: none;
 }
 
 .clockMode #bigClock {
+
     display: block;
 
     color: #ddd;
 
-    font-size: 48px;
+    font-size: 58px;
+
     font-weight: 300;
 
-    letter-spacing: -2px;
+    letter-spacing: -3px;
 
     font-variant-numeric: tabular-nums;
 }
 
 .clockMode #bigDate {
+
     display: block;
 
-    margin-top: 7px;
+    margin-top: 9px;
 
     color: #777;
 
-    font-size: 11px;
+    font-size: 12px;
 }
 
 
@@ -407,17 +455,19 @@ body {
    ========================================================= */
 
 #menuPanel {
+
     display: none;
 
     flex: 1;
 
     min-height: 0;
 
-    margin-top: 5px;
+    margin-top: 6px;
 
     flex-direction: column;
 
     border: 1px solid #292929;
+
     border-radius: 3px;
 
     background: #101010;
@@ -426,7 +476,8 @@ body {
 }
 
 #menuHeader {
-    height: 37px;
+
+    height: 42px;
 
     flex-shrink: 0;
 
@@ -434,7 +485,7 @@ body {
 
     align-items: center;
 
-    padding: 0 9px;
+    padding: 0 10px;
 
     border-bottom: 1px solid #303030;
 
@@ -442,11 +493,14 @@ body {
 }
 
 #menuHeader span {
+
     color: #ddd;
-    font-size: 12px;
+
+    font-size: 13px;
 }
 
 #menuItems {
+
     flex: 1;
 
     min-height: 0;
@@ -457,23 +511,26 @@ body {
 }
 
 .menuItem {
-    height: 34px;
+
+    height: 37px;
 
     display: flex;
 
     align-items: center;
 
-    padding: 0 8px;
+    padding: 0 9px;
 
     border: 1px solid transparent;
+
     border-radius: 3px;
 
     color: #aaa;
 
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .menuItem.selected {
+
     border-color: #777;
 
     background: #252525;
@@ -489,32 +546,47 @@ body {
 @media (max-height: 620px) {
 
     #radio {
-        grid-template-columns:
-            48px
-            minmax(0, 1fr)
-            48px;
 
-        gap: 6px;
+        grid-template-columns:
+            55px
+            minmax(0, 1fr)
+            55px;
+
+        gap: 7px;
 
         padding: 6px;
     }
 
     .side {
-        padding: 7px 0;
+
+        padding: 5px 0;
     }
 
     .eButton,
     .buttonGroup {
-        width: 44px;
-        height: 44px;
+
+        width: 50px;
+        height: 50px;
     }
 
     #topBar {
-        height: 35px;
+
+        height: 40px;
     }
 
     #logoBox {
-        width: 110px;
+
+        width: 125px;
+    }
+
+    #stationText {
+
+        font-size: 13px;
+    }
+
+    .clockMode #bigClock {
+
+        font-size: 52px;
     }
 }
 
@@ -526,18 +598,25 @@ body {
 @media (max-width: 350px) {
 
     #radio {
-        grid-template-columns:
-            46px
-            minmax(0, 1fr)
-            46px;
 
-        gap: 5px;
+        grid-template-columns:
+            52px
+            minmax(0, 1fr)
+            52px;
+
+        gap: 6px;
     }
 
     .eButton,
     .buttonGroup {
-        width: 43px;
-        height: 43px;
+
+        width: 48px;
+        height: 48px;
+    }
+
+    #logoBox {
+
+        width: min(50vw, 150px);
     }
 }
 
@@ -548,14 +627,16 @@ body {
 
 <body>
 
+
 <div id="radio">
 
 
     <!-- =====================================================
-         LEFT
+         LEFT BUTTON PANEL
          ===================================================== -->
 
     <aside class="side">
+
 
         <!-- OFF -->
 
@@ -564,7 +645,9 @@ body {
             id="powerButton"
             aria-label="Off"
         >
+
             <i class="fa-solid fa-power-off"></i>
+
         </button>
 
 
@@ -575,7 +658,9 @@ body {
             id="outputButton"
             aria-label="Output"
         >
+
             <i class="fa-solid fa-headphones"></i>
+
         </button>
 
 
@@ -586,8 +671,11 @@ body {
             id="displayButton"
             aria-label="Display"
         >
+
             <i class="fa-solid fa-circle-info"></i>
+
         </button>
+
 
     </aside>
 
@@ -600,7 +688,7 @@ body {
     <main id="centre">
 
 
-        <!-- TOP -->
+        <!-- TOP BAR -->
 
         <div id="topBar">
 
@@ -619,6 +707,9 @@ body {
 
         <section id="screen">
 
+
+            <!-- LOGO -->
+
             <div id="logoBox">
 
                 <span id="logoPlaceholder">
@@ -628,12 +719,14 @@ body {
             </div>
 
 
+            <!-- STATION -->
+
             <div id="stationText">
                 Select a station
             </div>
 
 
-            <!-- CLOCK -->
+            <!-- BIG CLOCK -->
 
             <div id="bigClock">
                 00:00
@@ -643,20 +736,28 @@ body {
                 Tuesday 18 August
             </div>
 
+
         </section>
 
 
-        <!-- MENU -->
+        <!-- =================================================
+             MENU
+             ================================================= -->
 
         <section id="menuPanel">
 
+
             <div id="menuHeader">
+
                 <span id="menuTitle">
                     Stations
                 </span>
+
             </div>
 
+
             <div id="menuItems"></div>
+
 
         </section>
 
@@ -666,7 +767,7 @@ body {
 
 
     <!-- =====================================================
-         RIGHT
+         RIGHT BUTTON PANEL
          ===================================================== -->
 
     <aside class="side">
@@ -676,44 +777,58 @@ body {
 
         <div class="buttonGroup">
 
+
             <button
                 class="groupButton"
                 id="volumeDown"
                 aria-label="Volume down"
             >
+
                 <i class="fa-solid fa-minus"></i>
+
             </button>
+
 
             <button
                 class="groupButton"
                 id="volumeUp"
                 aria-label="Volume up"
             >
+
                 <i class="fa-solid fa-plus"></i>
+
             </button>
+
 
         </div>
 
 
-        <!-- NAV -->
+        <!-- NAVIGATION -->
 
         <div class="buttonGroup">
+
 
             <button
                 class="groupButton"
                 id="navUp"
                 aria-label="Up"
             >
+
                 <i class="fa-solid fa-chevron-up"></i>
+
             </button>
+
 
             <button
                 class="groupButton"
                 id="navDown"
                 aria-label="Down"
             >
+
                 <i class="fa-solid fa-chevron-down"></i>
+
             </button>
+
 
         </div>
 
@@ -725,12 +840,17 @@ body {
             id="listButton"
             aria-label="List"
         >
+
             <i class="fa-solid fa-bars"></i>
+
         </button>
+
 
     </aside>
 
+
 </div>
+
 
 
 <!-- =========================================================
@@ -746,17 +866,23 @@ body {
    SHORTCUTS
    ========================================================= */
 
-const SHORTCUT_STATION = "ip8station";
+const SHORTCUT_STATION =
+    "ip8station";
 
-const SHORTCUT_OFF = "ip8off";
+const SHORTCUT_OFF =
+    "ip8off";
 
-const SHORTCUT_SONY = "ip8sony";
+const SHORTCUT_SONY =
+    "ip8sony";
 
-const SHORTCUT_HOMEPOD = "ip8homepod";
+const SHORTCUT_HOMEPOD =
+    "ip8homepod";
 
-const SHORTCUT_VOLUME_DOWN = "ip8voldown";
+const SHORTCUT_VOLUME_DOWN =
+    "ip8voldown";
 
-const SHORTCUT_VOLUME_UP = "ip8volup";
+const SHORTCUT_VOLUME_UP =
+    "ip8volup";
 
 
 /* =========================================================
@@ -774,31 +900,85 @@ let menuType = null;
 let clockMode = false;
 
 
-/*
-    Output menu has ONLY two options.
-*/
+/* =========================================================
+   OUTPUT OPTIONS
+   ========================================================= */
 
 const outputOptions = [
+
     {
         name: "Sony",
         shortcut: SHORTCUT_SONY
     },
+
     {
         name: "HomePod",
         shortcut: SHORTCUT_HOMEPOD
     }
+
 ];
+
+
+/* =========================================================
+   SAVE STATION
+   ========================================================= */
+
+function saveStation(station) {
+
+    if (!station) {
+        return;
+    }
+
+    localStorage.setItem(
+        "ip8_current_station",
+        station.id
+    );
+}
+
+
+/* =========================================================
+   RESTORE STATION
+   ========================================================= */
+
+function restoreStation() {
+
+    const savedID =
+        localStorage.getItem(
+            "ip8_current_station"
+        );
+
+    if (!savedID) {
+        return;
+    }
+
+    const station =
+        stations.find(
+            s => s.id === savedID
+        );
+
+    if (station) {
+
+        currentStation =
+            station;
+
+        updateStationDisplay();
+    }
+}
 
 
 /* =========================================================
    RUN SHORTCUT
    ========================================================= */
 
-function runShortcut(name, text = null) {
+function runShortcut(
+    name,
+    text = null
+) {
 
     let url =
         "shortcuts://run-shortcut?name="
         + encodeURIComponent(name);
+
 
     if (text !== null) {
 
@@ -809,7 +989,9 @@ function runShortcut(name, text = null) {
 
     }
 
-    window.location.href = url;
+
+    window.location.href =
+        url;
 }
 
 
@@ -819,9 +1001,17 @@ function runShortcut(name, text = null) {
 
 function playStation(station) {
 
-    currentStation = station;
+    currentStation =
+        station;
+
+
+    saveStation(
+        station
+    );
+
 
     updateStationDisplay();
+
 
     runShortcut(
         SHORTCUT_STATION,
@@ -849,10 +1039,12 @@ function updateStationDisplay() {
 
     const stationText =
         currentStation.strapline
-            ? currentStation.name
-              + " - "
-              + currentStation.strapline
-            : currentStation.name;
+            ?
+                currentStation.name
+                + " - "
+                + currentStation.strapline
+            :
+                currentStation.name;
 
 
     document.getElementById(
@@ -877,7 +1069,8 @@ function updateStationDisplay() {
             >
             `;
 
-    } else {
+    }
+    else {
 
         logoBox.innerHTML =
             `
@@ -896,17 +1089,22 @@ function updateStationDisplay() {
 
 function openStationMenu() {
 
-    menuType = "stations";
+    menuType =
+        "stations";
+
 
     selectedIndex =
         currentStation
-            ? Math.max(
-                0,
-                stations.indexOf(
-                    currentStation
+            ?
+                Math.max(
+                    0,
+                    stations.indexOf(
+                        currentStation
+                    )
                 )
-            )
-            : 0;
+            :
+                0;
+
 
     openMenu(
         "Stations"
@@ -920,9 +1118,13 @@ function openStationMenu() {
 
 function openOutputMenu() {
 
-    menuType = "output";
+    menuType =
+        "output";
 
-    selectedIndex = 0;
+
+    selectedIndex =
+        0;
+
 
     openMenu(
         "Output"
@@ -936,22 +1138,27 @@ function openOutputMenu() {
 
 function openMenu(title) {
 
-    menuOpen = true;
+    menuOpen =
+        true;
+
 
     document.getElementById(
         "screen"
     ).style.display =
         "none";
 
+
     document.getElementById(
         "menuPanel"
     ).style.display =
         "flex";
 
+
     document.getElementById(
         "menuTitle"
     ).textContent =
         title;
+
 
     renderMenu();
 }
@@ -963,14 +1170,19 @@ function openMenu(title) {
 
 function closeMenu() {
 
-    menuOpen = false;
+    menuOpen =
+        false;
 
-    menuType = null;
+
+    menuType =
+        null;
+
 
     document.getElementById(
         "menuPanel"
     ).style.display =
         "none";
+
 
     document.getElementById(
         "screen"
@@ -985,9 +1197,14 @@ function closeMenu() {
 
 function getMenuItems() {
 
-    if (menuType === "output") {
+    if (
+        menuType === "output"
+    ) {
+
         return outputOptions;
+
     }
+
 
     return stations;
 }
@@ -1004,7 +1221,9 @@ function renderMenu() {
             "menuItems"
         );
 
-    container.innerHTML = "";
+
+    container.innerHTML =
+        "";
 
 
     const items =
@@ -1018,6 +1237,7 @@ function renderMenu() {
                 document.createElement(
                     "div"
                 );
+
 
             row.className =
                 "menuItem";
@@ -1044,6 +1264,7 @@ function renderMenu() {
 
                     selectedIndex =
                         index;
+
 
                     selectMenuItem();
 
@@ -1094,9 +1315,16 @@ function selectMenuItem() {
     }
 
 
-    if (menuType === "stations") {
+    /* Station */
 
-        playStation(item);
+    if (
+        menuType === "stations"
+    ) {
+
+        playStation(
+            item
+        );
+
 
         closeMenu();
 
@@ -1104,11 +1332,16 @@ function selectMenuItem() {
     }
 
 
-    if (menuType === "output") {
+    /* Output */
+
+    if (
+        menuType === "output"
+    ) {
 
         runShortcut(
             item.shortcut
         );
+
 
         closeMenu();
 
@@ -1151,7 +1384,8 @@ function navigate(direction) {
         items.length
     ) {
 
-        selectedIndex = 0;
+        selectedIndex =
+            0;
 
     }
 
@@ -1161,7 +1395,7 @@ function navigate(direction) {
 
 
 /* =========================================================
-   OFF
+   POWER / OFF
    ========================================================= */
 
 document.getElementById(
@@ -1259,7 +1493,7 @@ document.getElementById(
 
 
 /* =========================================================
-   UP
+   NAV UP
    ========================================================= */
 
 document.getElementById(
@@ -1269,8 +1503,8 @@ document.getElementById(
     () => {
 
         /*
-            Physical UP button means
-            move UP through the menu.
+            UP moves upwards through
+            the station/output list.
         */
 
         navigate(-1);
@@ -1280,7 +1514,7 @@ document.getElementById(
 
 
 /* =========================================================
-   DOWN
+   NAV DOWN
    ========================================================= */
 
 document.getElementById(
@@ -1290,8 +1524,8 @@ document.getElementById(
     () => {
 
         /*
-            Physical DOWN button means
-            move DOWN through the menu.
+            DOWN moves downwards through
+            the station/output list.
         */
 
         navigate(1);
@@ -1311,10 +1545,10 @@ document.getElementById(
     () => {
 
         /*
-            No menu open:
+            No menu:
                 open station list.
 
-            Menu already open:
+            Menu open:
                 select highlighted item.
         */
 
@@ -1322,7 +1556,8 @@ document.getElementById(
 
             openStationMenu();
 
-        } else {
+        }
+        else {
 
             selectMenuItem();
 
@@ -1381,6 +1616,7 @@ function updateClock() {
 
 updateClock();
 
+
 setInterval(
     updateClock,
     1000
@@ -1428,12 +1664,31 @@ document.addEventListener(
 
 
 /* =========================================================
-   START
+   INITIALISE
    ========================================================= */
 
-renderMenu();
+if (
+    typeof stations !== "undefined"
+    &&
+    stations.length > 0
+) {
+
+    restoreStation();
+
+
+    if (!currentStation) {
+
+        currentStation =
+            stations[0];
+
+        updateStationDisplay();
+
+    }
+
+}
 
 </script>
 
 </body>
+
 </html>
