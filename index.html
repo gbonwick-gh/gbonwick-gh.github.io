@@ -1,10 +1,1435 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iP8 Audio Panel</title>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width,
+             initial-scale=1,
+             maximum-scale=1,
+             user-scalable=no,
+             viewport-fit=cover"
+>
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#080808">
+
+<title>Radio</title>
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
+
+<style>
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #d5d5d5;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+}
+
+body {
+    touch-action: manipulation;
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
+
+#radio {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        55px
+        minmax(0, 1fr)
+        55px;
+
+    gap: 8px;
+
+    padding:
+        calc(8px + env(safe-area-inset-top))
+        8px
+        calc(8px + env(safe-area-inset-bottom))
+        8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #171717 0%,
+            #0c0c0c 45%,
+            #050505 100%
+        );
+}
+
+
+/* =========================================================
+   SIDE BUTTON PANELS
+   ========================================================= */
+
+.side {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: space-around;
+
+    padding: 10px 0;
+}
+
+
+/* =========================================================
+   STANDARD BUTTON
+   ========================================================= */
+
+.eButton {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid #777;
+    border-radius: 4px;
+
+    background: #0b0b0b;
+
+    color: #d0d0d0;
+
+    font-size: 17px;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.025);
+}
+
+.eButton:active {
+    background: #d0d0d0;
+    color: #111;
+
+    transform: scale(.95);
+}
+
+
+/* =========================================================
+   DOUBLE BUTTON
+   ========================================================= */
+
+.buttonGroup {
+    width: 50px;
+    height: 50px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    border: 1px solid #777;
+    border-radius: 4px;
+
+    overflow: hidden;
+
+    background: #0b0b0b;
+}
+
+.groupButton {
+    width: 100%;
+    height: 100%;
+
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+
+    background: transparent;
+
+    color: #d0d0d0;
+
+    font-size: 15px;
+
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.groupButton + .groupButton {
+    border-left: 1px solid #777;
+}
+
+.groupButton:active {
+    background: #d0d0d0;
+    color: #111;
+}
+
+
+/* =========================================================
+   CENTRE
+   ========================================================= */
+
+#centre {
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+#topBar {
+    height: 39px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 9px;
+
+    border: 1px solid #444;
+    border-radius: 3px;
+
+    background: #151515;
+
+    box-shadow:
+        inset 0 0 10px rgba(0,0,0,.55);
+
+    font-size: 12px;
+}
+
+#topStation {
+    min-width: 0;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    color: #e0e0e0;
+}
+
+#topClock {
+    flex-shrink: 0;
+
+    margin-left: 8px;
+
+    color: #aaa;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* =========================================================
+   MAIN RADIO DISPLAY
+   ========================================================= */
+
+#screen {
+    flex: 1;
+
+    min-height: 0;
+
+    margin-top: 5px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 7px;
+
+    border: 1px solid #292929;
+    border-radius: 3px;
+
+    background: #101010;
+
+    box-shadow:
+        inset 0 0 22px rgba(0,0,0,.65);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+#logoBox {
+    width: min(45vw, 145px);
+
+    aspect-ratio: 1 / 1;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border: 1px solid #444;
+    border-radius: 3px;
+
+    background: #191919;
+}
+
+#logoBox img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+#logoPlaceholder {
+    color: #555;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   STATION NAME / STRAPLINE
+   ========================================================= */
+
+#stationText {
+    width: 100%;
+
+    margin-top: 11px;
+
+    padding: 0 4px;
+
+    text-align: center;
+
+    color: #ccc;
+
+    font-size: 12px;
+    line-height: 1.35;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   CLOCK MODE
+   ========================================================= */
+
+#bigClock,
+#bigDate {
+    display: none;
+}
+
+.clockMode #logoBox,
+.clockMode #stationText {
+    display: none;
+}
+
+.clockMode #bigClock {
+    display: block;
+
+    color: #ddd;
+
+    font-size: 48px;
+    font-weight: 300;
+
+    letter-spacing: -2px;
+
+    font-variant-numeric: tabular-nums;
+}
+
+.clockMode #bigDate {
+    display: block;
+
+    margin-top: 7px;
+
+    color: #777;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   MENU PANEL
+   ========================================================= */
+
+#menuPanel {
+    display: none;
+
+    flex: 1;
+
+    min-height: 0;
+
+    margin-top: 5px;
+
+    flex-direction: column;
+
+    border: 1px solid #292929;
+    border-radius: 3px;
+
+    background: #101010;
+
+    overflow: hidden;
+}
+
+#menuHeader {
+    height: 37px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 9px;
+
+    border-bottom: 1px solid #303030;
+
+    background: #151515;
+}
+
+#menuHeader span {
+    color: #ddd;
+    font-size: 12px;
+}
+
+#menuItems {
+    flex: 1;
+
+    min-height: 0;
+
+    overflow: hidden;
+
+    padding: 4px;
+}
+
+.menuItem {
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 8px;
+
+    border: 1px solid transparent;
+    border-radius: 3px;
+
+    color: #aaa;
+
+    font-size: 11px;
+}
+
+.menuItem.selected {
+    border-color: #777;
+
+    background: #252525;
+
+    color: #fff;
+}
+
+
+/* =========================================================
+   SMALL IPHONE HEIGHT
+   ========================================================= */
+
+@media (max-height: 620px) {
+
+    #radio {
+        grid-template-columns:
+            48px
+            minmax(0, 1fr)
+            48px;
+
+        gap: 6px;
+
+        padding: 6px;
+    }
+
+    .side {
+        padding: 7px 0;
+    }
+
+    .eButton,
+    .buttonGroup {
+        width: 44px;
+        height: 44px;
+    }
+
+    #topBar {
+        height: 35px;
+    }
+
+    #logoBox {
+        width: 110px;
+    }
+}
+
+
+/* =========================================================
+   NARROW
+   ========================================================= */
+
+@media (max-width: 350px) {
+
+    #radio {
+        grid-template-columns:
+            46px
+            minmax(0, 1fr)
+            46px;
+
+        gap: 5px;
+    }
+
+    .eButton,
+    .buttonGroup {
+        width: 43px;
+        height: 43px;
+    }
+}
+
+</style>
+
 </head>
+
+
 <body>
-    test txt
+
+<div id="radio">
+
+
+    <!-- =====================================================
+         LEFT
+         ===================================================== -->
+
+    <aside class="side">
+
+        <!-- OFF -->
+
+        <button
+            class="eButton"
+            id="powerButton"
+            aria-label="Off"
+        >
+            <i class="fa-solid fa-power-off"></i>
+        </button>
+
+
+        <!-- OUTPUT -->
+
+        <button
+            class="eButton"
+            id="outputButton"
+            aria-label="Output"
+        >
+            <i class="fa-solid fa-headphones"></i>
+        </button>
+
+
+        <!-- DISPLAY -->
+
+        <button
+            class="eButton"
+            id="displayButton"
+            aria-label="Display"
+        >
+            <i class="fa-solid fa-circle-info"></i>
+        </button>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         CENTRE
+         ===================================================== -->
+
+    <main id="centre">
+
+
+        <!-- TOP -->
+
+        <div id="topBar">
+
+            <span id="topStation">
+                Radio
+            </span>
+
+            <span id="topClock">
+                00:00
+            </span>
+
+        </div>
+
+
+        <!-- RADIO SCREEN -->
+
+        <section id="screen">
+
+            <div id="logoBox">
+
+                <span id="logoPlaceholder">
+                    RADIO
+                </span>
+
+            </div>
+
+
+            <div id="stationText">
+                Select a station
+            </div>
+
+
+            <!-- CLOCK -->
+
+            <div id="bigClock">
+                00:00
+            </div>
+
+            <div id="bigDate">
+                Tuesday 18 August
+            </div>
+
+        </section>
+
+
+        <!-- MENU -->
+
+        <section id="menuPanel">
+
+            <div id="menuHeader">
+                <span id="menuTitle">
+                    Stations
+                </span>
+            </div>
+
+            <div id="menuItems"></div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         RIGHT
+         ===================================================== -->
+
+    <aside class="side">
+
+
+        <!-- VOLUME -->
+
+        <div class="buttonGroup">
+
+            <button
+                class="groupButton"
+                id="volumeDown"
+                aria-label="Volume down"
+            >
+                <i class="fa-solid fa-minus"></i>
+            </button>
+
+            <button
+                class="groupButton"
+                id="volumeUp"
+                aria-label="Volume up"
+            >
+                <i class="fa-solid fa-plus"></i>
+            </button>
+
+        </div>
+
+
+        <!-- NAV -->
+
+        <div class="buttonGroup">
+
+            <button
+                class="groupButton"
+                id="navUp"
+                aria-label="Up"
+            >
+                <i class="fa-solid fa-chevron-up"></i>
+            </button>
+
+            <button
+                class="groupButton"
+                id="navDown"
+                aria-label="Down"
+            >
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+
+        </div>
+
+
+        <!-- LIST -->
+
+        <button
+            class="eButton"
+            id="listButton"
+            aria-label="List"
+        >
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+    </aside>
+
+</div>
+
+
+<!-- =========================================================
+     STATION DATA
+     ========================================================= -->
+
+<script src="stations.js"></script>
+
+
+<script>
+
+/* =========================================================
+   SHORTCUTS
+   ========================================================= */
+
+const SHORTCUT_STATION = "ip8station";
+
+const SHORTCUT_OFF = "ip8off";
+
+const SHORTCUT_SONY = "ip8sony";
+
+const SHORTCUT_HOMEPOD = "ip8homepod";
+
+const SHORTCUT_VOLUME_DOWN = "ip8voldown";
+
+const SHORTCUT_VOLUME_UP = "ip8volup";
+
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+let currentStation = null;
+
+let selectedIndex = 0;
+
+let menuOpen = false;
+
+let menuType = null;
+
+let clockMode = false;
+
+
+/*
+    Output menu has ONLY two options.
+*/
+
+const outputOptions = [
+    {
+        name: "Sony",
+        shortcut: SHORTCUT_SONY
+    },
+    {
+        name: "HomePod",
+        shortcut: SHORTCUT_HOMEPOD
+    }
+];
+
+
+/* =========================================================
+   RUN SHORTCUT
+   ========================================================= */
+
+function runShortcut(name, text = null) {
+
+    let url =
+        "shortcuts://run-shortcut?name="
+        + encodeURIComponent(name);
+
+    if (text !== null) {
+
+        url +=
+            "&input=text"
+            + "&text="
+            + encodeURIComponent(text);
+
+    }
+
+    window.location.href = url;
+}
+
+
+/* =========================================================
+   PLAY STATION
+   ========================================================= */
+
+function playStation(station) {
+
+    currentStation = station;
+
+    updateStationDisplay();
+
+    runShortcut(
+        SHORTCUT_STATION,
+        station.id
+    );
+}
+
+
+/* =========================================================
+   UPDATE STATION DISPLAY
+   ========================================================= */
+
+function updateStationDisplay() {
+
+    if (!currentStation) {
+        return;
+    }
+
+
+    document.getElementById(
+        "topStation"
+    ).textContent =
+        currentStation.name;
+
+
+    const stationText =
+        currentStation.strapline
+            ? currentStation.name
+              + " - "
+              + currentStation.strapline
+            : currentStation.name;
+
+
+    document.getElementById(
+        "stationText"
+    ).textContent =
+        stationText;
+
+
+    const logoBox =
+        document.getElementById(
+            "logoBox"
+        );
+
+
+    if (currentStation.logo) {
+
+        logoBox.innerHTML =
+            `
+            <img
+                src="${currentStation.logo}"
+                alt="${currentStation.name}"
+            >
+            `;
+
+    } else {
+
+        logoBox.innerHTML =
+            `
+            <span id="logoPlaceholder">
+                RADIO
+            </span>
+            `;
+
+    }
+}
+
+
+/* =========================================================
+   OPEN STATION MENU
+   ========================================================= */
+
+function openStationMenu() {
+
+    menuType = "stations";
+
+    selectedIndex =
+        currentStation
+            ? Math.max(
+                0,
+                stations.indexOf(
+                    currentStation
+                )
+            )
+            : 0;
+
+    openMenu(
+        "Stations"
+    );
+}
+
+
+/* =========================================================
+   OPEN OUTPUT MENU
+   ========================================================= */
+
+function openOutputMenu() {
+
+    menuType = "output";
+
+    selectedIndex = 0;
+
+    openMenu(
+        "Output"
+    );
+}
+
+
+/* =========================================================
+   OPEN MENU
+   ========================================================= */
+
+function openMenu(title) {
+
+    menuOpen = true;
+
+    document.getElementById(
+        "screen"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "menuPanel"
+    ).style.display =
+        "flex";
+
+    document.getElementById(
+        "menuTitle"
+    ).textContent =
+        title;
+
+    renderMenu();
+}
+
+
+/* =========================================================
+   CLOSE MENU
+   ========================================================= */
+
+function closeMenu() {
+
+    menuOpen = false;
+
+    menuType = null;
+
+    document.getElementById(
+        "menuPanel"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "screen"
+    ).style.display =
+        "flex";
+}
+
+
+/* =========================================================
+   GET MENU ITEMS
+   ========================================================= */
+
+function getMenuItems() {
+
+    if (menuType === "output") {
+        return outputOptions;
+    }
+
+    return stations;
+}
+
+
+/* =========================================================
+   RENDER MENU
+   ========================================================= */
+
+function renderMenu() {
+
+    const container =
+        document.getElementById(
+            "menuItems"
+        );
+
+    container.innerHTML = "";
+
+
+    const items =
+        getMenuItems();
+
+
+    items.forEach(
+        (item, index) => {
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+            row.className =
+                "menuItem";
+
+
+            if (
+                index === selectedIndex
+            ) {
+
+                row.classList.add(
+                    "selected"
+                );
+
+            }
+
+
+            row.textContent =
+                item.name;
+
+
+            row.addEventListener(
+                "click",
+                () => {
+
+                    selectedIndex =
+                        index;
+
+                    selectMenuItem();
+
+                }
+            );
+
+
+            container.appendChild(
+                row
+            );
+
+        }
+    );
+
+
+    const selected =
+        container.querySelector(
+            ".selected"
+        );
+
+
+    if (selected) {
+
+        selected.scrollIntoView({
+            block: "nearest"
+        });
+
+    }
+}
+
+
+/* =========================================================
+   SELECT MENU ITEM
+   ========================================================= */
+
+function selectMenuItem() {
+
+    const items =
+        getMenuItems();
+
+
+    const item =
+        items[selectedIndex];
+
+
+    if (!item) {
+        return;
+    }
+
+
+    if (menuType === "stations") {
+
+        playStation(item);
+
+        closeMenu();
+
+        return;
+    }
+
+
+    if (menuType === "output") {
+
+        runShortcut(
+            item.shortcut
+        );
+
+        closeMenu();
+
+        return;
+    }
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function navigate(direction) {
+
+    if (!menuOpen) {
+        return;
+    }
+
+
+    const items =
+        getMenuItems();
+
+
+    selectedIndex +=
+        direction;
+
+
+    if (
+        selectedIndex < 0
+    ) {
+
+        selectedIndex =
+            items.length - 1;
+
+    }
+
+
+    if (
+        selectedIndex >=
+        items.length
+    ) {
+
+        selectedIndex = 0;
+
+    }
+
+
+    renderMenu();
+}
+
+
+/* =========================================================
+   OFF
+   ========================================================= */
+
+document.getElementById(
+    "powerButton"
+).addEventListener(
+    "click",
+    () => {
+
+        runShortcut(
+            SHORTCUT_OFF
+        );
+
+    }
+);
+
+
+/* =========================================================
+   OUTPUT
+   ========================================================= */
+
+document.getElementById(
+    "outputButton"
+).addEventListener(
+    "click",
+    () => {
+
+        openOutputMenu();
+
+    }
+);
+
+
+/* =========================================================
+   DISPLAY
+   ========================================================= */
+
+document.getElementById(
+    "displayButton"
+).addEventListener(
+    "click",
+    () => {
+
+        if (menuOpen) {
+            return;
+        }
+
+
+        clockMode =
+            !clockMode;
+
+
+        document.body.classList.toggle(
+            "clockMode",
+            clockMode
+        );
+
+    }
+);
+
+
+/* =========================================================
+   VOLUME DOWN
+   ========================================================= */
+
+document.getElementById(
+    "volumeDown"
+).addEventListener(
+    "click",
+    () => {
+
+        runShortcut(
+            SHORTCUT_VOLUME_DOWN
+        );
+
+    }
+);
+
+
+/* =========================================================
+   VOLUME UP
+   ========================================================= */
+
+document.getElementById(
+    "volumeUp"
+).addEventListener(
+    "click",
+    () => {
+
+        runShortcut(
+            SHORTCUT_VOLUME_UP
+        );
+
+    }
+);
+
+
+/* =========================================================
+   UP
+   ========================================================= */
+
+document.getElementById(
+    "navUp"
+).addEventListener(
+    "click",
+    () => {
+
+        /*
+            Physical UP button means
+            move UP through the menu.
+        */
+
+        navigate(-1);
+
+    }
+);
+
+
+/* =========================================================
+   DOWN
+   ========================================================= */
+
+document.getElementById(
+    "navDown"
+).addEventListener(
+    "click",
+    () => {
+
+        /*
+            Physical DOWN button means
+            move DOWN through the menu.
+        */
+
+        navigate(1);
+
+    }
+);
+
+
+/* =========================================================
+   LIST / SELECT
+   ========================================================= */
+
+document.getElementById(
+    "listButton"
+).addEventListener(
+    "click",
+    () => {
+
+        /*
+            No menu open:
+                open station list.
+
+            Menu already open:
+                select highlighted item.
+        */
+
+        if (!menuOpen) {
+
+            openStationMenu();
+
+        } else {
+
+            selectMenuItem();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CLOCK
+   ========================================================= */
+
+function updateClock() {
+
+    const now =
+        new Date();
+
+
+    const time =
+        now.toLocaleTimeString(
+            [],
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false
+            }
+        );
+
+
+    document.getElementById(
+        "topClock"
+    ).textContent =
+        time;
+
+
+    document.getElementById(
+        "bigClock"
+    ).textContent =
+        time;
+
+
+    document.getElementById(
+        "bigDate"
+    ).textContent =
+        now.toLocaleDateString(
+            [],
+            {
+                weekday: "long",
+                day: "numeric",
+                month: "long"
+            }
+        );
+}
+
+
+updateClock();
+
+setInterval(
+    updateClock,
+    1000
+);
+
+
+/* =========================================================
+   KEYBOARD
+   ========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "ArrowUp"
+        ) {
+
+            navigate(-1);
+
+        }
+
+
+        if (
+            event.key === "ArrowDown"
+        ) {
+
+            navigate(1);
+
+        }
+
+
+        if (
+            event.key === "Enter"
+            &&
+            menuOpen
+        ) {
+
+            selectMenuItem();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+renderMenu();
+
+</script>
+
 </body>
 </html>
